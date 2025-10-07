@@ -243,52 +243,55 @@ class IntlPhoneField extends StatefulWidget {
   //enable the autofill hint for phone number
   final bool disableAutoFillHints;
 
-  const IntlPhoneField({
-    Key? key,
-    this.initialCountryCode,
-    this.languageCode = 'en',
-    this.disableAutoFillHints = false,
-    this.obscureText = false,
-    this.textAlign = TextAlign.left,
-    this.textAlignVertical,
-    this.onTap,
-    this.readOnly = false,
-    this.initialValue,
-    this.keyboardType = TextInputType.phone,
-    this.controller,
-    this.focusNode,
-    this.decoration = const InputDecoration(),
-    this.style,
-    this.dropdownTextStyle,
-    this.onSubmitted,
-    this.validator,
-    this.onChanged,
-    this.countries,
-    this.onCountryChanged,
-    this.onSaved,
-    this.showDropdownIcon = true,
-    this.dropdownDecoration = const BoxDecoration(),
-    this.inputFormatters,
-    this.enabled = true,
-    this.keyboardAppearance,
-    @Deprecated('Use searchFieldInputDecoration of PickerDialogStyle instead') this.searchText = 'Search country',
-    this.dropdownIconPosition = IconPosition.leading,
-    this.dropdownIcon = const Icon(Icons.arrow_drop_down),
-    this.autofocus = false,
-    this.textInputAction,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
-    this.showCountryFlag = true,
-    this.cursorColor,
-    this.disableLengthCheck = false,
-    this.flagsButtonPadding = EdgeInsets.zero,
-    this.invalidNumberMessage = 'Invalid Mobile Number',
-    this.cursorHeight,
-    this.cursorRadius = Radius.zero,
-    this.cursorWidth = 2.0,
-    this.showCursor = true,
-    this.pickerDialogStyle,
-    this.flagsButtonMargin = EdgeInsets.zero,
-  }) : super(key: key);
+  final bool enableChangeCountry;
+
+  const IntlPhoneField(
+      {Key? key,
+      this.initialCountryCode,
+      this.languageCode = 'en',
+      this.disableAutoFillHints = false,
+      this.obscureText = false,
+      this.textAlign = TextAlign.left,
+      this.textAlignVertical,
+      this.onTap,
+      this.readOnly = false,
+      this.initialValue,
+      this.keyboardType = TextInputType.phone,
+      this.controller,
+      this.focusNode,
+      this.decoration = const InputDecoration(),
+      this.style,
+      this.dropdownTextStyle,
+      this.onSubmitted,
+      this.validator,
+      this.onChanged,
+      this.countries,
+      this.onCountryChanged,
+      this.onSaved,
+      this.showDropdownIcon = true,
+      this.dropdownDecoration = const BoxDecoration(),
+      this.inputFormatters,
+      this.enabled = true,
+      this.keyboardAppearance,
+      @Deprecated('Use searchFieldInputDecoration of PickerDialogStyle instead') this.searchText = 'Search country',
+      this.dropdownIconPosition = IconPosition.leading,
+      this.dropdownIcon = const Icon(Icons.arrow_drop_down),
+      this.autofocus = false,
+      this.textInputAction,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction,
+      this.showCountryFlag = true,
+      this.cursorColor,
+      this.disableLengthCheck = false,
+      this.flagsButtonPadding = EdgeInsets.zero,
+      this.invalidNumberMessage = 'Invalid Mobile Number',
+      this.cursorHeight,
+      this.cursorRadius = Radius.zero,
+      this.cursorWidth = 2.0,
+      this.showCursor = true,
+      this.pickerDialogStyle,
+      this.flagsButtonMargin = EdgeInsets.zero,
+      this.enableChangeCountry = true})
+      : super(key: key);
 
   @override
   _IntlPhoneFieldState createState() => _IntlPhoneFieldState();
@@ -416,7 +419,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
 
         widget.onChanged?.call(phoneNumber);
       },
-      validator:widget.validator,
+      validator: widget.validator,
       //  (value) {
       //   if (value == null || !isNumeric(value)) return validatorMessage;
       //   if (!widget.disableLengthCheck) {
@@ -445,7 +448,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         decoration: widget.dropdownDecoration,
         child: InkWell(
           borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius?,
-          onTap: widget.enabled ? _changeCountry : null,
+          onTap: widget.enabled && widget.enableChangeCountry ? _changeCountry : null,
           child: Padding(
             padding: widget.flagsButtonPadding,
             child: Row(
